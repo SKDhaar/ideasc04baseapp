@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MRT Navigation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .step {
+            margin: 20px 0;
+        }
+
+        img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 12px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background: #007BFF;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="destinationTitle"></h1>
+    <div id="stepContainer"></div>
+    <button id="nextBtn">Next Step</button>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const destinationId = params.get("id");
+
+        const destinations = {
+            1: { name: "Exit A", steps: 8 },
+            2: { name: "Exit B", steps: 6 },
+            3: { name: "Exit C", steps: 7 },
+            4: { name: "Exit D", steps: 11 },
+            5: { name: "Exit E", steps: 15 },
+            6: { name: "Lift to Exit A", steps: 5 },
+            7: { name: "Lift to Exit B, D, E", steps: 2 },
+            8: { name: "Lift to Exit C", steps: 12 },
+            9: { name: "Toilet", steps: 2 }
+        };
+
+        let currentStep = 1;
+
+        if (destinations[destinationId]) {
+            const destination = destinations[destinationId];
+            document.getElementById("destinationTitle").innerText =
+                "Directions to " + destination.name;
+
+            const container = document.getElementById("stepContainer");
+
+            function loadStep() {
+                container.innerHTML = "";
+                const img = document.createElement("img");
+                img.src = "images/dest" + destinationId + "/step" + currentStep + ".jpg";
+                container.appendChild(img);
+
+                if (currentStep >= destination.steps) {
+                    document.getElementById("nextBtn").innerText = "Arrived!";
+                    document.getElementById("nextBtn").disabled = true;
+                }
+            }
+
+            loadStep();
+
+            document.getElementById("nextBtn").addEventListener("click", () => {
+                currentStep++;
+                loadStep();
+            });
+
+        } else {
+            document.getElementById("destinationTitle").innerText = "Invalid Destination";
+        }
+    </script>
+
+</body>
+</html>
