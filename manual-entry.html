@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manual Destination Entry</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: #111827;
+            padding: 25px;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.2);
+            text-align: center;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #22d3ee;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            background: #22d3ee;
+            color: black;
+            cursor: pointer;
+        }
+
+        .error {
+            color: #f87171;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>ENTER DESTINATION ID</h2>
+    <input type="number" id="destInput" placeholder="Enter ID (1–9)">
+    <button onclick="go()">Start Navigation</button>
+    <div class="error" id="errorMsg"></div>
+</div>
+
+<script>
+    const validIds = [1,2,3,4,5,6,7,8,9];
+
+    function go() {
+        const value = parseInt(document.getElementById("destInput").value);
+
+        if (validIds.includes(value)) {
+            window.location.href = "destination.html?id=" + value;
+        } else {
+            document.getElementById("errorMsg").innerText =
+                "Invalid ID. Please enter a number between 1 and 9.";
+        }
+    }
+</script>
+
+</body>
+</html>
