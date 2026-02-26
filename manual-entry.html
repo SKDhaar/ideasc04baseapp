@@ -34,7 +34,7 @@
             margin-bottom: 20px;
         }
 
-        input {
+        select {
             width: 100%;
             padding: 12px;
             border-radius: 10px;
@@ -66,9 +66,22 @@
 <body>
 
 <div class="card">
-    <h2>ENTER DESTINATION ID</h2>
-    <input type="number" id="destInput" placeholder="Enter ID (1–9)">
+    <h2>SELECT DESTINATION</h2>
+
+    <select id="destinationSelect">
+        <option value="">-- Choose a destination --</option>
+        <option value="destination1.html">Exit A</option>
+        <option value="destination2.html">Exit B</option>
+        <option value="destination8.html">Exit C</option>
+        <option value="destination4.html">Exit D</option>
+        <option value="destination5.html">Exit E</option>
+        <option value="destination6.html">Lift to Exit A</option>
+        <option value="destination7.html">Lift to Exit B, D, E</option>
+        <option value="destination9.html">Toilet</option>
+    </select>
+
     <button onclick="go()">Start Navigation</button>
+
     <div class="error" id="errorMsg"></div>
 </div>
 
@@ -76,16 +89,17 @@
     const validIds = [1,2,3,4,5,6,7,8,9];
 
     function go() {
-        const value = parseInt(document.getElementById("destInput").value);
+    const value = document.getElementById("destinationSelect").value;
 
-        if (validIds.includes(value)) {
-            window.location.href = "destination.html?id=" + value;
-        } else {
-            document.getElementById("errorMsg").innerText =
-                "Invalid ID. Please enter a number between 1 and 9.";
-        }
+    if (value) {
+        window.location.href = value;
+    } else {
+        document.getElementById("errorMsg").innerText =
+            "Please select a destination.";
     }
+}
 </script>
 
 </body>
 </html>
+
